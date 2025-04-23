@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h1 class="text-center mb-5">USA</h1>
+
+  <div class="container">
+    <div class="row justify-content-center">
+
+      <div class="col-md-4 text-center">
+        <a href="{{ url_for('director_detail', country='usa', dir_id=1) }}">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Harmony_Korine_at_81st_Venice_Film_Festival_%28cropped%29.jpg"
+            alt="Harmony Korine"
+            class="img-fluid rounded mb-3"
+          >
+          <h4>Harmony Korine</h4>
+        </a>
+      </div>
+
+
+      <div class="col-md-4 text-center">
+        <a href="{{ url_for('director_detail', country='usa', dir_id=2) }}">
+          <img
+            src="https://media.themoviedb.org/t/p/w500/duo4vbMQoEjY0MfIBMjcYMx2ymy.jpg"
+            alt="James Merendino"
+            class="img-fluid rounded mb-3"
+          >
+          <h4>James Merendino</h4>
+        </a>
+      </div>
+
+
+      <div class="col-md-4 text-center">
+        <a href="{{ url_for('director_detail', country='usa', dir_id=3) }}">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/RichMartini.JPG/960px-RichMartini.JPG"
+            alt="Rich Martini"
+            class="img-fluid rounded mb-3"
+          >
+          <h4>Rich Martini</h4>
+        </a>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}
+
