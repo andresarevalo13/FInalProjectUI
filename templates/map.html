@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h2>Explore the Directors and Films Around the World</h2>
+  <div id="map-container" style="position: relative; width: 100%; max-width: 800px;">
+    <img
+      src="https://as2.ftcdn.net/jpg/03/05/67/11/1000_F_305671161_m2nUYCAItJkXOqa7fcJiZCDicLRsLBbx.jpg"
+      class="img-fluid"
+    >
+
+
+    <div
+      class="dot"
+      style="position:absolute; top:24%; left:48%;"
+      onclick="window.location='/directors/denmark'"
+    ></div>
+
+
+    <div
+      class="dot"
+      style="position:absolute; top:35%; left:18%;"
+      onclick="window.location='/directors/usa'"
+    ></div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+

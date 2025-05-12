@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container py-4">
+  <h1 class="text-center mb-4">USA</h1>
+  <div class="row">
+    {% for director in directors %}
+      <div class="col-md-4 d-flex flex-column align-items-center mb-4">
+        <img
+          src="{{ director.image }}"
+          alt="{{ director.name }}"
+          class="img-fluid rounded mb-2"
+          style="height: 300px; object-fit: cover;"
+        >
+        <a
+          href="{{ url_for('director_detail', country='usa', dir_id=director.id) }}"
+          class="h5 text-decoration-none"
+        >
+          {{ director.name }}
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+

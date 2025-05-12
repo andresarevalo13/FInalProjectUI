@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mb-5">
+  <h1 class="text-center mb-4">{{ director.name }}</h1>
+  <div class="row">
+    <!-- Portrait -->
+    <div class="col-md-6">
+      <img
+        src="{{ director.image }}"
+        alt="{{ director.name }}"
+        class="img-fluid rounded mb-3"
+        style="object-fit: cover; width:100%; height:300px;"
+      >
+    </div>
+
+    <!-- Bio / Filmography -->
+    <div class="col-md-6">
+      <div class="btn-group mb-3" role="group">
+        <button id="bio-btn" class="btn btn-primary">Bio</button>
+        <button id="film-btn" class="btn btn-outline-secondary">Filmography</button>
+      </div>
+
+      <!-- BIO LIST -->
+      <div id="bio-section">
+        <ul class="list-group mb-3">
+          {% for bullet in director.bio %}
+            <li class="list-group-item">{{ bullet }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- FILMOGRAPHY LIST (hidden by default) -->
+      <div id="film-section" style="display:none;">
+        <ul class="list-group mb-3">
+          {% for title in director.filmography %}
+            <li class="list-group-item">{{ title }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Dogme 95 Films & Tickets -->
+      <h5>Dogme 95 Films</h5>
+      <ul class="list-unstyled">
+        {% for title in director.films %}
+          <li class="d-flex align-items-center mb-2">
+            <span class="me-2">{{ title }}</span>
+            <a
+              href="{{ url_for('film_detail',
+                               country=country.lower(),
+                               dir_id=director.id,
+                               film_idx=loop.index0) }}"
+              title="Watch clip for {{ title }}"
+            >
+              <img
+                src="https://cdn2.vectorstock.com/i/1000x1000/46/66/cinema-tickets-on-background-vector-11404666.jpg"
+                alt="ticket"
+                style="width:32px; cursor:pointer;"
+              >
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <button
+        class="btn btn-outline-secondary"
+        onclick="window.history.back()"
+      >
+        ← Return to {{ country }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Toggle Bio vs Filmography
+document.getElementById('bio-btn').onclick = () => {
+  document.getElementById('bio-section').style.display = '';
+  document.getElementById('film-section').style.display = 'none';
+  document.getElementById('bio-btn').classList.replace('btn-outline-secondary','btn-primary');
+  document.getElementById('film-btn').classList.replace('btn-primary','btn-outline-secondary');
+};
+document.getElementById('film-btn').onclick = () => {
+  document.getElementById('film-section').style.display = '';
+  document.getElementById('bio-section').style.display = 'none';
+  document.getElementById('film-btn').classList.replace('btn-outline-secondary','btn-primary');
+  document.getElementById('bio-btn').classList.replace('btn-primary','btn-outline-secondary');
+};
+</script>
+{% endblock %}
+

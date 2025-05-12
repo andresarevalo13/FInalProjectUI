@@ -1,0 +1,137 @@
+{# templates/quiz_question.html #}
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="container py-4">
+    <h1 class="mb-3">Quiz {{ q_id }} / {{ total }}</h1>
+    <p class="lead">{{ question.prompt }}</p>
+
+    {# Show image if provided #}
+    {% if question.img %}
+      <div class="text-center mb-4">
+        <img
+          src="{{ question.img }}"
+          alt="Quiz Image"
+          class="img-fluid quiz-img rounded"
+        >
+      </div>
+    {% endif %}
+
+    {# Non–drag questions (1–9) #}
+    {% if q_id != 10 %}
+      <form method="POST">
+        {% if question.multi %}
+          {% for opt in question.options %}
+            <div class="form-check mb-2">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                name="choice"
+                id="opt{{ loop.index }}"
+                value="{{ opt }}"
+              >
+              <label class="form-check-label" for="opt{{ loop.index }}">
+                {{ opt }}
+              </label>
+            </div>
+          {% endfor %}
+        {% else %}
+          {% for opt in question.options %}
+            <div class="form-check mb-2">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="choice"
+                id="opt{{ loop.index }}"
+                value="{{ opt }}"
+                required
+              >
+              <label class="form-check-label" for="opt{{ loop.index }}">
+                {{ opt }}
+              </label>
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <button type="submit" class="btn btn-primary mt-3">
+          {% if q_id < total %}Next{% else %}See Results{% endif %}
+        </button>
+      </form>
+
+    {# Drag-and-drop question 10 #}
+    {% else %}
+      <form method="POST" id="quizForm">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>Available items:</h5>
+            <ul id="draggable-list" class="list-group">
+              {% for opt in question.options %}
+                <li class="list-group-item draggable-item" data-value="{{ opt }}">
+                  {{ opt }}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h5>Drag rules here:</h5>
+            <ul id="drop-zone" class="list-group droppable-zone">
+              <li class="list-group-item text-muted">Drop items here</li>
+            </ul>
+          </div>
+        </div>
+        <div id="choices"></div>
+        <button type="submit" class="btn btn-primary mt-3">See Results</button>
+      </form>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  {% if q_id == 10 %}
+    <script>
+      $(function(){
+        // make the list items draggable (keep originals)
+        $(".draggable-item").draggable({
+          helper: "clone",
+          revert: "invalid",
+          cursor: "move"
+        });
+
+        // configure the drop zone
+        $("#drop-zone").droppable({
+          accept: ".draggable-item",
+          drop: function(event, ui) {
+            // remove placeholder text
+            $(this).find(".text-muted").remove();
+
+            // get the value of the dropped item
+            var val = ui.draggable.data("value");
+
+            // avoid duplicates
+            if ($(this).find('li[data-value="'+val+'"]').length === 0) {
+              $("<li>")
+                .addClass("list-group-item")
+                .attr("data-value", val)
+                .text(val)
+                .appendTo(this);
+            }
+          }
+        });
+
+        // on form submit, serialize dropped items
+        $("#quizForm").on("submit", function(){
+          $("#choices").empty();
+          $("#drop-zone li").each(function(){
+            $("<input>")
+              .attr("type", "hidden")
+              .attr("name", "choice")
+              .val($(this).data("value"))
+              .appendTo("#choices");
+          });
+        });
+      });
+    </script>
+  {% endif %}
+{% endblock %}
+

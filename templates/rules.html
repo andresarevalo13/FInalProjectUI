@@ -1,0 +1,50 @@
+{# templates/rules.html #}
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container py-4">
+  <h1 class="text-center mb-5">Learn the Rules of Dogme 95</h1>
+
+  <div class="row justify-content-center align-items-center">
+    <!-- Left column: 1–5 -->
+    <div class="col-12 col-md-3 mb-4">
+      {% for i in range(1,6) %}
+        {#
+          unlocked if it is Rule 1, or they've seen the previous one
+        #}
+        {% set unlocked = (i == 1) or ((i-1) in seen_rules) %}
+        <button
+          onclick="location.href='{{ url_for('rule_detail', rule_id=i) }}'"
+          class="btn btn-light w-100 mb-3 rounded"
+          {% if not unlocked %} disabled {% endif %}
+        >
+          Rule {{ i }}: {{ rules[i].title }}
+        </button>
+      {% endfor %}
+    </div>
+
+    <!-- Center illustration -->
+    <div class="col-12 col-md-4 mb-4 text-center">
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJiiI5H-PL2QAgCBQliKe9Qd-wV5hCEzBKdQ&s"
+        alt="Dogme 95 Rules"
+        class="img-fluid rounded"
+      />
+    </div>
+
+    <!-- Right column: 6–10 -->
+    <div class="col-12 col-md-3 mb-4">
+      {% for i in range(6,11) %}
+        {% set unlocked = (i == 1) or ((i-1) in seen_rules) %}
+        <button
+          onclick="location.href='{{ url_for('rule_detail', rule_id=i) }}'"
+          class="btn btn-light w-100 mb-3 rounded"
+          {% if not unlocked %} disabled {% endif %}
+        >
+          Rule {{ i }}: {{ rules[i].title }}
+        </button>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

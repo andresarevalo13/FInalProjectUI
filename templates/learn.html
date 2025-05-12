@@ -1,0 +1,71 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container py-4">
+  <h1>Dogme 95 vs. Hollywood</h1>
+  <p>{{ lesson.prompt }}</p>
+
+  {% if request.path == "/learn/5" %}
+  <!-- ✅ Before/After Comparison Slider -->
+  <div class="comparison-container mb-3" id="comparison-container">
+    <!-- Background image (e.g., Hollywood) -->
+    <img
+      src="{{ lesson.img1 }}"
+      alt="HollyWood Style"
+      class="img-fluid rounded"
+    />
+
+    <!-- Foreground clipped image (e.g., Dogme) -->
+    <div class="resize" id="resize">
+      <img
+        src="{{ lesson.img2 }}"
+        alt="DOGME Style"
+        class="img-fluid rounded"
+      />
+    </div>
+
+    <!-- Slider handle -->
+    <div class="slider" id="slider"></div>
+  </div>
+  {% else %}
+  <!-- Side-by-side for other lessons -->
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <img src="{{ lesson.img1 }}" alt="Option 1" class="img-fluid rounded" />
+    </div>
+    <div class="col-md-6">
+      <img src="{{ lesson.img2 }}" alt="Option 2" class="img-fluid rounded" />
+    </div>
+  </div>
+  {% endif %}
+
+  <button id="revealBtn" class="btn btn-primary">Reveal Answer</button>
+
+  {% if next_id %}
+  <button
+    onclick="location.href='{{ url_for('learn', lesson_id=next_id) }}'"
+    class="btn btn-success ms-2"
+  >
+    Next Question
+  </button>
+  {% else %}
+  <button
+    onclick="location.href='{{ url_for('home') }}'"
+    class="btn btn-secondary ms-2"
+  >
+    Home
+  </button>
+  {% endif %}
+
+  <div id="answerBlock" class="alert alert-info mt-3" style="display: none">
+    {{ lesson.answer }}
+  </div>
+</div>
+
+<script>
+  document.getElementById("revealBtn")?.addEventListener("click", function () {
+    document.getElementById("answerBlock").style.display = "block";
+    this.disabled = true;
+  });
+</script>
+{% endblock %} {% block scripts %} {{ super() }}
+<script src="{{ url_for('static', filename='js/learn.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h2 class="mb-3">Rule {{ rule_id }}: {{ rule.title }}</h2>
+
+  {# new illustration #}
+  {% if rule_image %}
+    <div class="text-center mb-4">
+      <img
+        src="{{ rule_image }}"
+        alt="Illustration for rule {{ rule_id }}"
+        class="img-fluid rounded"
+        style="max-width: 500px; height: auto;"
+      />
+    </div>
+  {% endif %}
+
+  <p>{{ rule.content }}</p>
+
+  <div class="btn-group mt-3">
+    {% if prev_id %}
+      <button id="prevBtn" class="btn btn-secondary" data-prev="{{ prev_id }}">
+        ← Previous
+      </button>
+    {% endif %}
+    {% if next_id %}
+      <button id="nextBtn" class="btn btn-secondary" data-next="{{ next_id }}">
+        Next →
+      </button>
+    {% endif %}
+    <button id="backRules" class="btn btn-primary">Back to Rules</button>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/rules.js') }}"></script>
+{% endblock %}

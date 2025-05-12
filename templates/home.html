@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+  <p class="lead text-center">
+    WELCOME TO DOGME 95! Learn about the film movement’s directors & films!
+  </p>
+
+
+  <div class="d-flex justify-content-center gap-4 my-4">
+    <button class="btn btn-outline-primary" onclick="window.location='/learn/1'">
+      Dogme vs Hollywood
+    </button>
+    <button class="btn btn-outline-primary" onclick="window.location='/rules'">
+      Dogme 95 Rules
+    </button>
+    <button class="btn btn-outline-primary" onclick="window.location='/directors'">
+      Explore Directors
+    </button>
+    <button class="btn btn-outline-primary" onclick="window.location='/quiz/1'">
+      Test Yourself
+    </button>
+  </div>
+{% endblock %}
+
