@@ -247,7 +247,7 @@ QUIZ = {
         "prompt": "Which Dogme 95 Director Is This?",
         "img": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Harmony_Korine_at_81st_Venice_Film_Festival_%28cropped%29.jpg",
         "options": ["Harmony Korine","Rich Martini","Lars von Trier","Thomas Vinterberg"],
-        "answer": "Thomas Vinterberg",
+        "answer": "Harmony Korine",
         "multi": False
     },
     3: {
@@ -261,7 +261,7 @@ QUIZ = {
         "prompt": "Which Dogme 95 Director Is This?",
         "img": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Thomas_Vinterberg_Berlinale_2010_%28cropped%29.jpg",
         "options": ["Harmony Korine","Rich Martini","Lars von Trier","Thomas Vinterberg"],
-        "answer": "Harmony Korine",
+        "answer": "Thomas Vinterberg",
         "multi": False
     },
     5: {
